@@ -1,0 +1,49 @@
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
+
+
+SERVICE_NAME = "MyService"
+APP_ENV = os.getenv("APP_ENV")
+
+SANTANDER_BANK_ID = "90400888000142"
+
+SANTANDER_ACCOUNT_SIGNED_CERTIFICATE= os.getenv("CERTIFICATE"), os.getenv("SECRETKEY")
+
+SANTANDER_ACCOUNT_API_URL = os.getenv("BASE_URL")
+SANTANDER_TRANSFER_API_URL = os.getenv("BASE_URL_H")
+
+SANTANDER_WORKSPACE_URL = os.getenv("WORKSPACE")
+
+SANTANDER_CONSULT_CLIENT_ID = os.getenv('CLIENT_ID')
+SANTANDER_CONSULT_CLIENT_SECRET = os.getenv("CLIENT_SECRET")
+
+SANTANDER_TRANSFER_CLIENT_ID = os.getenv('TRANSFER_CLIENT_ID')
+SANTANDER_TRANSFER_CLIENT_SECRET = os.getenv("TRANSFER_CLIENT_SECRET")
+
+SANTANDER_TOKEN_CONSULT = f"{os.getenv("BASE_URL")}{os.getenv("AUTH_URL")}"
+SANTANDER_TOKEN_TRANSFER = f"{os.getenv("BASE_URL_H")}{os.getenv("AUTH_URL_H")}"
+
+DATABASE_USER = os.getenv('DB_USER')
+DATABASE_PASSWORD = os.getenv('DB_PASSWORD')
+DATABASE_HOST = os.getenv('DB_HOST')
+DATABASE_PORT = os.getenv('DB_PORT')
+DATABASE_NAME = os.getenv('DB_NAME')
+DATABASE_URL = os.getenv('DATABASE_URL')
+
+BYPASS_ENDPOINTS = ["/santander_proxy/", "/santander_proxy/health_check"]
+
+
+
+
+
+
+
+
+
+
+
+
+
+

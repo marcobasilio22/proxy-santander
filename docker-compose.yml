@@ -1,0 +1,55 @@
+version: "3.7"
+services:
+  santander_proxy_api:
+    image: santander_proxy_api:latest
+    build:
+      context: .
+      target: api
+    container_name: santander-proxy-api
+    ports:
+      - "3000:3000"
+    env_file: local.env
+    volumes:
+      - ./src:/app
+    command: sh -c "gunicorn -c config.py -w 1 -b 0.0.0.0:3000 app --reload"
+
+  santander_proxy_consumer:
+    image: santander_proxy_consumer:latest
+    build:
+      context: .
+      target: consumer
+    container_name: santander-proxy-consumer
+    env_file: local.env
+    volumes:
+      - ./src:/app
+    command: sh -c "python app_consumer.py"
+
+  db:
+    build: ./database/.
+    container_name: postgres
+    environment:
+      - POSTGRES_USER=my_user
+      - POSTGRES_PASSWORD=my_pwd
+      - POSTGRES_DB=my_db
+    ports:
+      - "5432:5432"
+
+  mock:
+    image: 618787091844.dkr.ecr.us-east-1.amazonaws.com/mockserver:mockserver-5.11.1
+    command: -logLevel ERROR -serverPort 1080 -proxyRemotePort 1080
+    container_name: mock_server
+    ports:
+      - "1080:1080"
+
+  localstack:
+    image: 618787091844.dkr.ecr.us-east-1.amazonaws.com/localstack:3.0.2
+    container_name: localstack
+    ports:
+      - "4566:4566"
+      - "8080:8080"
+    environment:
+      - SERVICES=secretsmanager,sqs
+      - DEBUG=1
+      - PORT_WEB_UI=8080
+      - LAMBDA_EXECUTOR=docker
+      - DOCKER_HOST=unix:///var/run/docker.sock

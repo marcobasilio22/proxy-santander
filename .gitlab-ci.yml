@@ -1,0 +1,5 @@
+include:
+  - project: 'qidtvm/ci_cd'
+    ref: master
+    file:
+      - deploys/api_consumer_codebuild.yml
